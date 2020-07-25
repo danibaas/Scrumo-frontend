@@ -82,14 +82,22 @@
   </v-layout>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+<script lang="ts">
+import { Vue, Component, Prop } from "vue-property-decorator"
 
-export default {
-  components: {
-    Logo,
-    VuetifyLogo,
-  },
+interface User {
+  firstName: string
+  lastName: number
+}
+
+@Component
+export default class YourComponent extends Vue {
+  @Prop({ type: Object, required: true }) readonly user!: User
+
+  message: string = "This is a message"
+
+  get fullName(): string {
+    return `${this.user.firstName} ${this.user.lastName}`
+  }
 }
 </script>
